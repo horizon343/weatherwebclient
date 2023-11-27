@@ -1,0 +1,55 @@
+.wrapper {
+    display: grid;
+    gap: 5px;
+
+    .location {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .locationText {
+            font-size: 16px;
+            margin: 0 0 0 -5px;
+        }
+
+        .language {
+            font-size: 16px;
+        }
+    }
+
+    .temperature {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .temperatureNumber {
+            font-size: 42px;
+            font-weight: 400;
+        }
+    }
+
+    .forecast {
+        .forecastText {
+            font-size: 14px;
+        }
+    }
+
+    .date {
+        .dateText {
+            font-size: 14px;
+        }
+    }
+}
+
+p {
+    color: var(--titleColor);
+    font-family: "Roboto";
+    font-weight: 300;
+    font-style: normal;
+}
+
+.icon {
+    stroke: var(--titleColor);
+    stroke-width: 2;
+    height: 30px;
+}

@@ -1,0 +1,29 @@
+.wrapper {
+    .bgBox {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: fixed;
+        z-index: 10;
+
+        .bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .wrap {
+        position: relative;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.192);
+        backdrop-filter: blur(10px);
+
+        .outletBox {
+            width: 100vw;
+            height: 100vh;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+    }
+}
