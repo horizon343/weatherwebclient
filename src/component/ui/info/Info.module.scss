@@ -26,6 +26,10 @@
             font-size: 42px;
             font-weight: 400;
         }
+
+        * {
+            stroke: var(--titleColor);
+        }
     }
 
     .forecast {
@@ -52,8 +56,4 @@ p {
     stroke: var(--titleColor);
     stroke-width: 2;
     height: 30px;
-}
-
-* {
-    stroke: var(--titleColor);
 }
