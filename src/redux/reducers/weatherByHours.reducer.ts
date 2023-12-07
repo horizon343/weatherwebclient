@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios, { AxiosResponse } from "axios"
 import { TConfig, TGetData, TWeatherByHours } from "./weather.type"
+import { RootState } from "../store"
 
 const URL = process.env.REACT_APP_API_URL || ""
 
@@ -70,3 +71,5 @@ export const getWeatherByHoursTC = createAsyncThunk<Array<TWeatherByHours>, stri
         }
     }
 )
+
+export const getWeatherByHoursS = (state: RootState) => state.weatherByHours

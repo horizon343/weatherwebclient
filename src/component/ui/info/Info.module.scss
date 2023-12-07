@@ -53,3 +53,7 @@ p {
     stroke-width: 2;
     height: 30px;
 }
+
+* {
+    stroke: var(--titleColor);
+}

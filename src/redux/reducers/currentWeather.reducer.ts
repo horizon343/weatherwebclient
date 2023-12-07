@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { AxiosResponse } from "axios"
 import { TAdditionalInfo, TConfig, TCurrentWeather, TGetData } from "./weather.type"
+import { RootState } from "../store"
 
 type TInitialState = {
     currentWeather: TCurrentWeather | null
@@ -56,3 +57,5 @@ export const getCurrentWeatherTC = createAsyncThunk<TCurrentWeather, AxiosRespon
         return result
     }
 )
+
+export const getCurrentWeatherS = (state: RootState) => state.currentWeather

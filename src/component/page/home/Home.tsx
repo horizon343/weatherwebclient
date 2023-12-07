@@ -1,6 +1,3 @@
-import { ReactComponent as Sun } from "./../../../resource/icon/sun.svg"
-import { ReactComponent as Rain } from "./../../../resource/icon/rain.svg"
-import { ReactComponent as Snow } from "./../../../resource/icon/snow.svg"
 import { ReactComponent as Drops } from "./../../../resource/icon/drops.svg"
 import { ReactComponent as UvIndex } from "./../../../resource/icon/uvIndex.svg"
 import style from "./Home.module.scss"
@@ -8,35 +5,29 @@ import WeatherCard from "../../ui/weatherCard/WeatherCard"
 import WeatherTimeCard from "../../ui/weatherTimeCard/WeatherTimeCard"
 import InfoCard from "../../ui/infoCard/InfoCard"
 import Info from "../../ui/info/Info"
+import { forecastIcon, forecastText } from "./forecast"
+import { treeIndex } from "./treeIndex"
+import { useAppSelector } from "../../../hook/redux.hook"
+import { getWeatherByHoursS } from "../../../redux/reducers/weatherByHours.reducer"
+import { getWeatherByDaysS } from "../../../redux/reducers/weatherByDays.reducer"
+import { getCurrentWeatherS } from "../../../redux/reducers/currentWeather.reducer"
 
 export default function Home() {
-    const days = [
-        { day: "Понедельник", temperature: 28, icon: <Sun className={style.icon} /> },
-        { day: "Вторник", temperature: 24, icon: <Sun className={style.icon} /> },
-        { day: "Среда", temperature: 32, icon: <Rain className={style.icon} /> },
-        { day: "Четверг", temperature: 26, icon: <Sun className={style.icon} /> },
-        { day: "Пятница", temperature: 35, icon: <Snow className={style.icon} /> },
-        { day: "Суббота", temperature: 23, icon: <Rain className={style.icon} /> },
-        { day: "Воскресенье", temperature: 14, icon: <Sun className={style.icon} /> }
-    ]
+    const weatherByHoursData = useAppSelector(getWeatherByHoursS)
+    const weatherByDaysData = useAppSelector(getWeatherByDaysS)
+    const currentWeatherData = useAppSelector(getCurrentWeatherS)
 
-    const times = [
-        { time: "06:00", temperature: 28, icon: <Sun className={style.icon} /> },
-        { time: "10:00", temperature: 32, icon: <Sun className={style.icon} /> },
-        { time: "14:00", temperature: 34, icon: <Rain className={style.icon} /> },
-        { time: "18:00", temperature: 15, icon: <Sun className={style.icon} /> },
-        { time: "22:00", temperature: 23, icon: <Snow className={style.icon} /> },
-        { time: "02:00", temperature: 17, icon: <Rain className={style.icon} /> }
-    ]
+    if (!weatherByHoursData.weatherByHours || !weatherByDaysData.weatherByDays || !currentWeatherData.currentWeather)
+        return <div></div>
 
     return (
         <div className={style.wrapper}>
             <div className={style.firstBox}>
-                {days.map((day, index) => (
+                {weatherByDaysData.weatherByDays.map((item, index) => (
                     <WeatherCard
-                        day={day.day}
-                        temperature={day.temperature}
-                        icon={day.icon}
+                        day={item.day}
+                        temperature={Math.round(item.temperature)}
+                        icon={forecastIcon[item.forecast]}
                         key={index}
                     />
                 ))}
@@ -50,20 +41,20 @@ export default function Home() {
                     />
                     <div className={style.infoBox}>
                         <Info
-                            location="Екатеринбург"
-                            language="RU"
-                            temperature={28}
-                            forecast="Облачно с прояснениями"
-                            icon={<Sun className={`${style.icon} ${style.white}`} />}
+                            location={currentWeatherData.additionalInfo.location}
+                            language={currentWeatherData.additionalInfo.language}
+                            temperature={Math.round(currentWeatherData.currentWeather.temperature)}
+                            forecast={forecastText[currentWeatherData.currentWeather.forecast]}
+                            icon={forecastIcon[currentWeatherData.currentWeather.forecast]}
                         />
                     </div>
                 </div>
                 <div className={style.weatherTime}>
-                    {times.map((time, index) => (
+                    {weatherByHoursData.weatherByHours.map((item, index) => (
                         <WeatherTimeCard
-                            time={time.time}
-                            temperature={time.temperature}
-                            icon={time.icon}
+                            time={item.time}
+                            temperature={Math.round(item.temperature)}
+                            icon={forecastIcon[item.forecast]}
                             key={index}
                         />
                     ))}
@@ -71,12 +62,12 @@ export default function Home() {
                 <div className={style.detailInfo}>
                     <InfoCard
                         title="Влажность"
-                        text="17%"
+                        text={`${currentWeatherData.currentWeather.humidity}%`}
                         icon={<Drops className={style.iconMini} />}
                     />
                     <InfoCard
                         title="Uv Index"
-                        text="Low"
+                        text={treeIndex[currentWeatherData.currentWeather.uvIndex]}
                         icon={<UvIndex className={style.iconMini} />}
                     />
                 </div>
