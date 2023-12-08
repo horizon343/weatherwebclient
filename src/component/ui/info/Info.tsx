@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { ReactComponent as Location } from "./../../../resource/icon/location.svg"
 import style from "./Info.module.scss"
+import { useAppOutletContext } from "../../../hook/reactRouterDom.hook"
 
 type TProps = {
     location: string
@@ -38,11 +39,18 @@ export default function Info({ location, language, temperature, forecast, icon }
         setInterval(() => setDate(new Date()), 1000)
     }, [])
 
+    const { setOpen } = useAppOutletContext()
+
     return (
         <div className={style.wrapper}>
             <div className={style.location}>
                 <Location className={style.icon} />
-                <p className={style.locationText}>{location},</p>
+                <p
+                    className={style.locationText}
+                    onClick={() => setOpen(true)}
+                >
+                    {location},
+                </p>
                 <p className={style.language}>{language}</p>
             </div>
             <div className={style.temperature}>

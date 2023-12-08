@@ -1,0 +1,27 @@
+.wrapper {
+    height: 35px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .textField {
+        height: 100%;
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid var(--textColor);
+        padding: 0 40px 0 10px;
+        color: var(--textColor);
+        font-family: "Roboto";
+        font-weight: 400;
+    }
+
+    .icon {
+        position: absolute;
+        right: 5px;
+        stroke: var(--textColor);
+        stroke-width: 1.5;
+        height: 30px;
+        fill: none;
+    }
+}

@@ -17,8 +17,10 @@ export default function Home() {
     const weatherByDaysData = useAppSelector(getWeatherByDaysS)
     const currentWeatherData = useAppSelector(getCurrentWeatherS)
 
-    if (!weatherByHoursData.weatherByHours || !weatherByDaysData.weatherByDays || !currentWeatherData.currentWeather)
+    if (!weatherByHoursData.weatherByHours || !weatherByDaysData.weatherByDays || !currentWeatherData.currentWeather) {
+        alert("Ошибка запроса, повторите попытку позднее")
         return <div></div>
+    }
 
     return (
         <div className={style.wrapper}>

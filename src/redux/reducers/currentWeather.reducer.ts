@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { AxiosResponse } from "axios"
 import { TAdditionalInfo, TConfig, TCurrentWeather, TGetData } from "./weather.type"
 import { RootState } from "../store"
@@ -24,7 +24,11 @@ const initialState: TInitialState = {
 const currentWeatherSlice = createSlice({
     name: "currentWeatherSlice",
     initialState,
-    reducers: {},
+    reducers: {
+        setLocationAC: (state, action: PayloadAction<string>) => {
+            state.additionalInfo.location = action.payload
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getCurrentWeatherTC.pending, (state) => {
@@ -44,6 +48,7 @@ const currentWeatherSlice = createSlice({
     }
 })
 export default currentWeatherSlice.reducer
+export const { setLocationAC } = currentWeatherSlice.actions
 
 export const getCurrentWeatherTC = createAsyncThunk<TCurrentWeather, AxiosResponse<TGetData>>(
     "getCurrentWeatherTC",
